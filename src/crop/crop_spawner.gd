@@ -1,5 +1,5 @@
 extends Node2D
-
+signal yields_crop(value)
 
 onready var texture_rect: TextureRect = $TextureRect
 export var CROP : PackedScene
@@ -16,6 +16,11 @@ func _ready() -> void:
 			if data.get_pixelv(pixel_position).r:
 				var crop = CROP.instance()
 				owner.call_deferred("add_child", crop)
-				crop.global_position = pixel_position*2
+				crop.global_position = global_position + pixel_position*2
 				i += 1
+				crop.connect("yields_crop",self,"_yield_crop")
+				crop.connect("red_crop",owner,"restart")
 	data.unlock()
+
+func _yield_crop(value):
+	emit_signal("yields_crop",value)
