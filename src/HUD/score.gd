@@ -12,7 +12,7 @@ func _on_crop(value):
 		crops.modulate = Color.green
 		emit_signal("win")
 func _on_total_crops(value):
-	target = value * 0.8
+	target = value * 0.75
 	$"%target_crops".text = "GOAL:%d" % target
 	
 
