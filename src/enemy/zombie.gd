@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 signal die()
 signal physics_update()
 
@@ -9,7 +9,8 @@ func _physics_process(delta: float) -> void:
 	if !players:
 		return 
 	look_at(players[0].global_position)
-	global_position += speed * Vector2.RIGHT.rotated(rotation) * delta
+#	global_position += speed * Vector2.RIGHT.rotated(rotation) * delta
+	move_and_slide(speed*Vector2.RIGHT.rotated(rotation))
 	emit_signal("physics_update")
 func die():
 	emit_signal("die")
